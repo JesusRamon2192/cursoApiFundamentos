@@ -3,16 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gatitos aleatorios</title>
+    <title>Perritos app</title>
 </head>
 <body>
-    <h1>Gatitos aleatorios</h1>
+    <h1>Perros</h1>
+    <section class="container">
+        <h2>Characters</h2>
+        <article>
+            <img id="img1" width="150" alt="Foto gatito aleatorio">
+            <button>Guardar foto en favoritos</button>
+        </article>
 
-    <img id="img1" width="150" alt="Foto gatito aleatorio">
-    <img id="img2" width="150" alt="Foto gatito aleatorio">
-    <img id="img3" width="150" alt="Foto gatito aleatorio">
+        <article>
+            <img id="img2" width="150" alt="Foto gatito aleatorio">
+            <button>Guardar foto en favoritos</button>
+        </article>
+
+        <article>
+            <img id="img3" width="150" alt="Foto gatito aleatorio">
+            <button>Guardar foto en favoritos</button>
+        </article>
+
+        <!-- <div class="row" id="marvel-row">
+            
+        </div> -->
+    </section>
+
+    <section id="favorites">
+        <h2>Favorites</h2>
+        <article>
+            <img id="img1" width="150" alt="Foto gatito aleatorio">
+            <button>Sacar foto de favoritos</button>
+        </article>
+    </section>
     
-    <button onclick="getDog()">Otro perrito</button>
+    
+    <button onclick="reload()">Recargar</button>
     <script src="./main.js"></script>
 </body>
 </html>
