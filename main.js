@@ -1,6 +1,7 @@
 const API_URL = 'https://api.thedogapi.com/v1/';
 const API_URL_RANDOM = 'https://api.thedogapi.com/v1/images/search?limit=2&api_key=live_tBR1gbQC08HCpF8Zv1YGZKdaCvOBOBZiDo2ANdzVqYPbtRgTMFJUNALClJxUdT1T';
 const API_URL_FAVOURITES = 'https://api.thedogapi.com/v1/favourites?limit=2&api_key=live_tBR1gbQC08HCpF8Zv1YGZKdaCvOBOBZiDo2ANdzVqYPbtRgTMFJUNALClJxUdT1T';
+const API_URL_FAVOURITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourites/${id}?api_key=live_tBR1gbQC08HCpF8Zv1YGZKdaCvOBOBZiDo2ANdzVqYPbtRgTMFJUNALClJxUdT1T`;
 const API_KEY = 'live_tBR1gbQC08HCpF8Zv1YGZKdaCvOBOBZiDo2ANdzVqYPbtRgTMFJUNALClJxUdT1T';
 
 const spanError = document.getElementById('error');
@@ -57,14 +58,19 @@ async function loadFavoritesDogs() {
     } else {
         const section = document.getElementById('favorites');
         const toRender = [];
-
+        section.innerHTML = "";
+        const h2 = document.createElement('h2');
+        const h2Text = document.createTextNode('Favorites Dogs');
+        section.appendChild(h2);
+        h2.appendChild(h2Text);
         data.forEach( dog => {
             const article = document.createElement('article');
             const img = document.createElement('img');
             const btn = document.createElement('button');
-            const btnText = document.createTextNode('Sacar al michi de favoritos');
+            const btnText = document.createTextNode('Sacar al dog de favoritos');
 
             btn.appendChild(btnText);
+            btn.onclick = () => deleteFavorite(dog.id);
             img.src = dog.image.url;
             img.width = 150;
             article.append(img, btn);
@@ -90,7 +96,23 @@ async function saveFavouritesDog(id) {
 
     if (res.status !== 200) {
         spanError.innerHTML = "Hubo un error: " + res.status + data.message;
-    } 
+    } else {
+        console.log('Dog guardado');
+    }
+    loadFavoritesDogs();
+}
+
+async function deleteFavorite(id) {
+    const res = await fetch(API_URL_FAVOURITES_DELETE(id), {
+        method: 'DELETE'
+    })
+    //const data = await res.json();
+    if (res.status !== 200) {
+        spanError.innerHTML = "Hubo un error: " + res.status/*  + data.message */;
+    } else {
+        console.log('Dog Eliminado');
+    }
+    loadFavoritesDogs();
 }
 
 loadRandomDogs();
