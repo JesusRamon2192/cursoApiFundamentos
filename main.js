@@ -33,11 +33,14 @@ async function loadRandomDogs() {
     } else {
         const img1 = document.getElementById('img1');
         const img2 = document.getElementById('img2');
+        const btn1 = document.getElementById('btn1');
+        const btn2 = document.getElementById('btn2');
     
         img1.src = data[0].url;
         img2.src = data[1].url;
 
-
+        btn1.onclick = () => saveFavouritesDog(data[0].id);
+        btn2.onclick = () => saveFavouritesDog(data[1].id);
     }
 
 
@@ -58,7 +61,7 @@ async function loadRandomDogs() {
 
 
 async function loadFavoritesDogs() {
-    const response = await fetch(`${API_URL}favourites?limit=10&api_key=${API_KEY}`);
+    const response = await fetch(`${API_URL}favourites?limit=100&api_key=${API_KEY}`);
     const data = await response.json();
     console.log('Favorites');
     console.log(data);
@@ -66,19 +69,36 @@ async function loadFavoritesDogs() {
 
     if (response.status !== 200) {
         spanError.innerHTML = "Hubo un error: " + response.status;
-    } 
+    } else {
+        const section = document.getElementById('favorites');
+        const toRender = [];
+
+        data.forEach( dog => {
+            const article = document.createElement('article');
+            const img = document.createElement('img');
+            const btn = document.createElement('button');
+            const btnText = document.createTextNode('Sacar al michi de favoritos');
+
+            btn.appendChild(btnText);
+            img.src = dog.image.url;
+            img.width = 150;
+            article.append(img, btn);
+            toRender.push(article);
+        })
+        section.append(...toRender);
+    }
     
 }
 
 
-async function saveFavouritesDogs() {
+async function saveFavouritesDog(id) {
     const res = await fetch(`${API_URL}favourites?api_key=${API_KEY}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            image_id: "HyOjge5Vm"
+            image_id: id
         })
     });
     const data = res.json();
