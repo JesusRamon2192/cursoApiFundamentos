@@ -5,6 +5,13 @@ const API_URL_FAVOURITES_DELETE = (id) => `https://api.thedogapi.com/v1/favourit
 const API_KEY = 'live_tBR1gbQC08HCpF8Zv1YGZKdaCvOBOBZiDo2ANdzVqYPbtRgTMFJUNALClJxUdT1T';
 
 
+const apiAxios = axios.create({
+    baseURL: 'https://api.thedogapi.com/v1',
+    headers: {'X-API-KEY': API_KEY}
+});
+
+
+//apiAxios.defaults.headers.common['X-API-KEY'] = API_KEY;
 const spanError = document.getElementById('error');
 //Clave priv 1530013163d257c659eb7f168cfcdc49909bd6ff3a00003a2ae815a80abb93c18d5772340
 /* fetch(API_URL)
@@ -36,10 +43,14 @@ async function loadRandomDogs() {
         img3.src = data[2].url;
 
 
+
+
         btn1.onclick = () => saveFavouritesDog(data[0].id);
         btn2.onclick = () => saveFavouritesDog(data[1].id);
         btn3.onclick = () => saveFavouritesDog(data[2].id);
     }
+
+
 
 
     /* for (const hero of data.data.results){
@@ -67,6 +78,8 @@ async function loadFavoritesDogs() {
     
 
 
+
+
     if (response.status !== 200) {
         spanError.innerHTML = "Hubo un error: " + response.status;
     } else {
@@ -86,6 +99,8 @@ async function loadFavoritesDogs() {
             const btnText = document.createTextNode('Sacar al dog de favoritos');
 
 
+
+
             btn.appendChild(btnText);
             btn.onclick = () => deleteFavorite(dog.id);
             img.src = dog.image.url;
@@ -99,7 +114,12 @@ async function loadFavoritesDogs() {
 
 
 async function saveFavouritesDog(id) {
-    const res = await fetch(`${API_URL}favourites`, {
+    const { data, status } = await apiAxios.post('/favourites', {
+        image_id: id
+    });
+
+
+    /* const res = await fetch(`${API_URL}favourites`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -109,18 +129,22 @@ async function saveFavouritesDog(id) {
             image_id: id
         })
     });
-    const data = res.json();
+    const data = res.json(); */
     console.log('Saved');
-    console.log(res);
+    console.log(data);
 
 
-    if (res.status !== 200) {
-        spanError.innerHTML = "Hubo un error: " + res.status + data.message;
+
+
+    if (status !== 200) {
+        spanError.innerHTML = "Hubo un error: " + status + data.message;
     } else {
         console.log('Dog guardado');
     }
     loadFavoritesDogs();
 }
+
+
 
 
 async function deleteFavorite(id) {
@@ -161,6 +185,21 @@ async function uploadDogPhoto(){
         console.log({ data });
         console.log(data.url);
         saveFavouritesDog(data.id);
+    }
+}
+
+function previewImage(){
+    const img = document.querySelector('#imagePreview');
+    img.style.display="flex"
+    const reader = new FileReader();
+    const filePreview = document.querySelector('#file').files[0];
+    console.log(filePreview);
+    reader.addEventListener('load', () => {
+        img.src = reader.result;
+    }, false);
+    if(filePreview) {
+        reader.readAsDataURL(filePreview)
+        console.log(reader);
     }
 }
 loadRandomDogs();

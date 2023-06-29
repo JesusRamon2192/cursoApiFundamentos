@@ -7,11 +7,11 @@
     <link rel="stylesheet" href="./estilo.css">
 </head>
 <body>
-    <h1>Perros en adopcion</h1>
+    <h1>The Dog Api</h1>
     <span id="error"></span>
 
-
-    <h2>Perros disponibles</h2>
+    <h2>Perritos aleatorios</h2>
+    <h3>Guarda la imagen del perrito que mas te guste en tus favoritos o sube la foto de tu perrito</h3>
     <section id="randomDogs">
         <article>
             <img id="img1" alt="Foto dog aleatorio">
@@ -20,14 +20,12 @@
             </button>
         </article>
 
-
         <article>
             <img id="img2" alt="Foto dog aleatorio">
             <button id="btn2">
                 Guardar foto en favoritos
             </button>
         </article>
-
 
         <article>
             <img id="img3" alt="Foto dog aleatorio">
@@ -36,23 +34,23 @@
             </button>
         </article>
 
-
     </section>
     <button class="btnReload" onclick="loadRandomDogs()">Recargar</button>
 
     <h2>Sube la foto de tu perrito</h2>
     <section id="uploading">
         <form id="uploadingForm">
-            <input type="file" name="file" id="file">
+            <input type="file" name="file" id="file" onchange="previewImage()"><br>
+            <img alt="Image preview" id="imagePreview">
             <button type="button" onclick="uploadDogPhoto()">Subir foto</button>
         </form>
     </section>
-    <script src="./main.js"></script>
-
+    
     <h2>Perros Favoritos</h2>
     <section id="favorites">
     </section>
     
-    
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
 </body>
 </html>
