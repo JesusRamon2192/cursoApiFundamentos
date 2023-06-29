@@ -1,0 +1,50 @@
+body {
+    background-color: #4b95eb;
+}
+
+
+h1, h2 {
+    display: flex;
+    justify-content: center;
+}
+
+
+img {
+    width: 150px;
+    height: 150px;
+    margin: 5px;
+}
+
+
+article {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+}
+
+
+#randomDogs, #uploading {
+    display: flex;
+    column-gap: 34px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+}
+
+
+.btnReload {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+
+#favorites {
+    display: flex;
+    column-gap: 34px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 10px;
+}

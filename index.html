@@ -4,37 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Perritos app</title>
+    <link rel="stylesheet" href="./estilo.css">
 </head>
 <body>
-    <h1>Perros</h1>
+    <h1>Perros en adopcion</h1>
     <span id="error"></span>
-    
-    
+
+
+    <h2>Perros disponibles</h2>
     <section id="randomDogs">
-        <h2>Perros aleatorios</h2>
         <article>
-            <img id="img1" width="150" alt="Foto gatito aleatorio">
+            <img id="img1" alt="Foto dog aleatorio">
             <button id="btn1">
                 Guardar foto en favoritos
             </button>
         </article>
 
+
         <article>
-            <img id="img2" width="150" alt="Foto gatito aleatorio">
+            <img id="img2" alt="Foto dog aleatorio">
             <button id="btn2">
                 Guardar foto en favoritos
             </button>
         </article>
 
-        <button onclick="loadRandomDogs()">Recargar</button>
+
+        <article>
+            <img id="img3" alt="Foto dog aleatorio">
+            <button id="btn3">
+                Guardar foto en favoritos
+            </button>
+        </article>
+
 
     </section>
+    <button class="btnReload" onclick="loadRandomDogs()">Recargar</button>
 
-    <section id="favorites">
-
+    <h2>Sube la foto de tu perrito</h2>
+    <section id="uploading">
+        <form id="uploadingForm">
+            <input type="file" name="file" id="file">
+            <button type="button" onclick="uploadDogPhoto()">Subir foto</button>
+        </form>
     </section>
-    
-    
     <script src="./main.js"></script>
+
+    <h2>Perros Favoritos</h2>
+    <section id="favorites">
+    </section>
+    
+    
 </body>
 </html>
